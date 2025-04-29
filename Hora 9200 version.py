@@ -267,8 +267,6 @@ def process_data(folder_path):
             raise FileNotFoundError(f"No DEVENGADO file found in {folder_path}")
         devengado_file = os.path.join(folder_path, devengado_files[0])
 
-
-
         # Process categorias_codigos data from work_directory
         os.chdir(work_directory)
         categorias_codigos = pd.read_excel("Codigos_Clasificador_Compilado.xlsx")
@@ -283,26 +281,24 @@ def process_data(folder_path):
         categorias_codigos["Cod_SIGFE"] = categorias_codigos["Cod_SIGFE"].str.replace(".", "")
         categorias_codigos["Cod_SIGFE"] = categorias_codigos["Cod_SIGFE"].str[2:]
 
-
-        # This part is just to read the sheetname of the month in the folder name
-        folder_name = os.path.basename(os.getcwd())
+        # Find the sheet name matching the folder name
+        folder_name = os.path.basename(folder_path) # Use folder_path passed to the function
         devengado_excel = pd.ExcelFile(devengado_file)
         nombre_hojas = devengado_excel.sheet_names
 
         sheet_name = None
         for hoja in nombre_hojas:
+            # Use case-insensitive regex search on the folder name derived from folder_path
             if re.search(folder_name, hoja, re.IGNORECASE):
                 sheet_name = hoja
                 break
 
-        # If no matching sheet found, use default behavior
-        if sheet_name:
+        # If no matching sheet found, raise an error or handle appropriately
+        if sheet_name is None:
+            raise ValueError(f"No sheet found in '{devengado_file}' matching the folder name '{folder_name}'.")
+        else:
             print(f"Using matching sheet: '{sheet_name}' for folder: '{folder_name}'")
             devengado = pd.read_excel(devengado_file, skiprows=5, header=0, sheet_name=sheet_name)
-        else:
-            print(f"No matching sheet found for folder '{folder_name}'. Using default sheet.")
-            devengado = pd.read_excel(devengado_file, skiprows=5, header=0)
-
 
         devengado = devengado.dropna(subset=["NOMBRE PROVEEDOR"])
 
@@ -310,8 +306,6 @@ def process_data(folder_path):
         devengado["Cod_SIGFE"] = devengado.iloc[:, 9].copy()
         devengado["item_conv"] = devengado["item_conv"].str.split("-").str[1].str.strip()
         devengado["Cod_SIGFE"] = devengado["Cod_SIGFE"].str.split("-").str[1].str.strip()
-
-
 
         # Rest of function remains the same
         merged = pd.merge(devengado, categorias_codigos, how='outer', on='Cod_SIGFE')
