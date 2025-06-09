@@ -1,3 +1,43 @@
+# Generador Automatizado de Reportes Financieros
+Este trabajo, busca facilitar la generación de los reportes mensuales de los Devengados, para ello se utiliza el siguiente Flujo.
+## Estructura de Directorios
+
+Lo primero que sucede al activar el programa es que se comienza una monitorización de forma permanente de una carpeta especificada, el programa por defecto monitorea Compartido Abastecimiento/Otros/SIGCOM, y todos los años y meses dentro de las subcarpetas.
+Esta estructura monitoreada se ve a continuación
+```
+SIGCOM/
+├── 2024/
+│   ├── Enero/
+│   │   ├── BASE DISTRIBUCION GASTO GENERAL Y SUMINISTROS.xlsx
+│   │   └── DEVENGADO.xlsx
+│   ├── Febrero/
+│   └── ...
+├── 2025/
+└── ...
+
+NO_BORRAR/
+└── Codigos_Clasificador_Compilado.xlsx
+```
+Donde cada uno de esos elementos corresponde 
+Lo que hace el monitoreo, es que monitoreoa la carpeta SIGCOM, y revisa las carpetas dentro.
+### 1. **Inicio Monitoreo**
+. Esta monitorización va a detectar cualquier cambio o movimiento que se genere dentro de la carpeta y en base a eso generará cambios. Asi por ejemplo, un evento puede ser la creación de un archivo en la carpeta de destino.
+### 2. **Verificación de requerimientos**
+Cuando se detecta algun cambio lo que sucede es que inmedietamente se comienza a verificar lo siguiente:
+- Existe el archivo de Devengado en la carpeta 
+- Existe el archivo de Base en la carpeta 
+- Existe el Compilado con los códigos SIGFE/SIGCOM en la carpeta NO BORRAR.
+- No existe ya el documento de salida.
+De cumplirse todos los requerimientos entonces se procede a generar_output1
+### 3. **Genera output1**
+- Modifico los códigos en Devengado para que sigan el mismo formato que en Codigo Clasificador Compilado.
+- Al documento devengado le agrega los codigos SIGFE, SIGCOM y la descripción
+- Luego guarda el mismo documento con esos cambios como `Modified_Devengado.xlsx`
+### 4. **Genera output_2**
+- Luego con todas las ordenes de compra, las agrupa por su respectivo código Sigfe, y agrega una columna con el Monto total dado por la suma de todos los elementos con el mismo código, y otra columna con el Monto Subasignaciones, dado por la suma de los Montos Totales de los SubItems en caso de poseerlos.
+### 5. **Genera output_3**
+- Luego genera el reporte final, cada uno de los elementos de output_2 es asignado manualmente y designado en una columna en específico dentro del archivo de Base.
+
 # Generador Automatizado de Reportes Financieros  
 
 Este flujo de trabajo automatiza la generación de reportes financieros mediante:  
@@ -41,7 +81,7 @@ Antes de procesar, verifica:
 
 ---
 
-### Dependencias Clave  
+### Dependencias Clave
 - `watchdog`: Monitoreo del sistema de archivos.  
 - `pandas`: Fusión y agregación de datos.  
 - `xlwings`: Automatización de plantillas Excel.  
