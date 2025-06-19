@@ -28,15 +28,15 @@ Para que el reporte se genere se revisa que se cumplan **todos** los requisitos 
 | Requisito | ¿Qué pasa si falta? | ¿Cómo solucionarlo? |
 |-----------|---------------------|---------------------|
 | **`DEVENGADO.xlsx`** en la carpeta del mes | El reporte **NO se genera** | 1. Consigue el archivo de gastos del mes<br>2. Colócalo en la carpeta del mes<br>3. Asegúrate que se llame el nombre comienza con `DEVENGADO` |
-| **`BASE DISTRIBUCION GASTO GENERAL Y SUMINISTROS.xlsx`** en la carpeta del mes | El reporte **NO se genera** | Si quieres una versión específica:<br>1. Copia el archivo desde `NO_BORRAR`<br>2. Pégalo en la carpeta del mes |
+| **`BASE DISTRIBUCION GASTO GENERAL Y SUMINISTROS.xlsx`** en la carpeta del mes | El reporte **NO se genera** | Copia el archivo desde `NO_BORRAR`<br>2. Pégalo en la carpeta del mes |
 | **`Codigos_Clasificador_Compilado.xlsx`** en `NO_BORRAR` | El reporte **NO funciona correctamente** | **No lo muevas ni lo borres**<br>Si falta, repónlo desde una copia de seguridad |
-| **NO existe el reporte final** en la carpeta del mes | No se crea nuevo reporte | 1. Elimina el reporte antiguo<br>2. O muévelo a otra carpeta |
+| **NO existe el reporte final** en la carpeta del mes | Si es que **Ya existe un reporte** no se crea un nuevo reporte | 1. Elimina el reporte antiguo<br>2. O muévelo a otra carpeta |
 
-### 3. **Creación de Archvio intermedio 1**
+### 3. **Creación de Archvio intermedio 1 (Devengado Modificado)**
 - El programa abre el Excel devengado **utilizando la hoja con el mismo nombre de la carpeta** y luego le agrega un par de columnas que contienen los nombres del ITEM SIGFE e ITEM SIGCOM, estas columnas provienen del Compilado de Códigos Presupuestarios.
 
-### 4. **Genera output_2**
-- Con el archivo anterior, se toman todas las compras y las agrupa por su respectivo código SIGFE, y agrega una columna con el Monto total dado por la suma de todos los elementos con el mismo código, y otra columna con el Monto Subasignaciones, dado por la suma de los Montos Totales de los SubItems en caso de poseerlos.
+### 4. **Creación de Archivo Intermedio 2**
+- Utiliza el archivo intermedio 1, toma todas las compras y las agrupa por su respectivo código SIGFE, luego agrega una columna con el Monto total dado por la suma de todos los elementos con el mismo código, y otra columna con el Monto Subasignaciones, dado por la suma de los Montos Totales de los SubItems en caso de poseerlos.
 ### 5. **Genera output_3**
 - Luego genera el reporte final, cada uno de los elementos de output_2 es asignado manualmente y designado en una columna en específico dentro del archivo de Base.
 
