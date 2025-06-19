@@ -1,7 +1,7 @@
 # Generador Automatizado de Reportes Financieros
-Este trabajo, busca facilitar la generación de los reportes mensuales de los Devengados, para ello se utiliza el siguiente Flujo.
+Este trabajo, busca facilitar la generación de los reportes mensuales de los Devengados.
 
-Este escrito responde al ¿Cómo? se realiza el reporte, pero antes de dar esa respuesta, se debe responder al ¿Qué hace? La respuesta es en realidad sencilla, Generar un reporte con la información del Devengado, agrupando por los respectivos Items de costo. Y el monitoreo y barrido que se describen posteriormente son solamente el medio escojido para asegurarse que estén los archivos existentes, y realizar el reporte.
+Este escrito responde al ¿Cómo? se realiza el reporte, pero antes de dar esa respuesta, se debe responder al ¿Qué hace? La respuesta es en realidad sencilla, Generar un reporte con la información del Devengado, que resuma lo gastado en cada Item SIGFE. El monitoreo y barrido que se describen posteriormente son solamente la forma o el medio escojido para lograr eso, y su objetivo es asegurarse que estén los archivos existentes, para realizar el reporte.
 ## Estructura de Directorios
 
 Lo primero que sucede al activar el programa es que se comienza una monitorización de forma permanente de una carpeta especificada, el programa por defecto monitorea Compartido Abastecimiento/Otros/SIGCOM, y todos los años y meses dentro de las subcarpetas.
@@ -22,20 +22,19 @@ NO_BORRAR/
 └── Codigos_Clasificador_Compilado.xlsx
 └── BASE DISTRIBUCION GASTO GENERAL Y SUMINISTROS.xlsx
 ```
-Donde cada uno de esos elementos corresponde 
-Lo que hace el monitoreo, es que monitoreoa la carpeta SIGCOM, y revisa las carpetas dentro.
+Lo que hace el monitoreo, es que monitoreoa la carpeta SIGCOM, y revisa los años y meses dentro.
 ### 1. **Inicio Monitoreo**
-Esta monitorización va a detectar cualquier modificación que se genere dentro de la carpeta y en base a eso generará cambios. Asi por ejemplo, un evento puede ser la creación/modificación/renombrado de un archivo en la carpeta de destino. 
+Esta monitorización va a detectar cualquier modificación que se genere dentro de la carpeta y en base a eso generará cambios. Asi por ejemplo, un evento puede ser la creación/modificación/renombrado de un archivo en la carpeta de destino. El fin de esta monitorización es en última instancia asegurarse que estén todos los archivos necesarios para realizar el Reporte.
 ### 2. **Verificación de requerimientos**
 Cuando se detecta algun cambio lo que sucede es que inmedietamente se comienza a verificar lo siguiente:
 - Existe el archivo de Devengado en la carpeta 
 - Existe el archivo de Base en la carpeta 
 - Existe el Compilado con los códigos SIGFE/SIGCOM en la carpeta NO BORRAR.
 - No existe ya el documento de salida.
-De cumplirse todos los requerimientos entonces se procede a generar_output1.
-Para el archivo de Base en la carpeta, este archivo es el reporte mensual que tipicamente se completaba, y es necesario que cada vez que se quiere generar el reporte del devengado mensual se debe ingresar un archivo de Base y un Archivo de Devengado, de no tener algun archivo de Base en la carpeta, entonces hay unos de respaldo en otra carpeta NO BORRAR, tal cual se muestra en la estructuras de carpetas previa.
+De cumplirse todos los requerimientos entonces se procede a generar un Devengado Modificado.
+Con respecto al segundo requisito, se pregunta ¿Existe un archivo Base?, este archivo es el reporte mensual que se completa, y es necesario que cada vez que se quiere generar el reporte del devengado mensual se debe ingresar un archivo de Base y un Archivo de Devengado, de no tener algun archivo de Base en la carpeta, entonces hay unos de respaldo en otra carpeta NO BORRAR, tal cual se muestra en la estructuras de carpetas previa.
 Como aclaración, tipicamente no nos preocuparemos por el tercer requisito del compilado de Códigos, pues este debería siempre existir a menos que sea manualmente borrado.
-Otro punto a aclarar, es que en la estructura de carpetas mostrada previamente el mes de ENERO tiene los archivos correctamente creados, por lo que el proceso debería ejecutarse sin problemas y generar el reporte para ese mes, sin embargo el mes de Febrero, carece del archivo necesario para la base, por lo que es necesario copiar y pegar la base que está en la Carpeta NO_BORRAR
+Otro punto a aclarar, es que en la estructura de carpetas mostrada previamente el mes de ENERO tiene los archivos correctamente creados, por lo que el proceso debería ejecutarse sin problemas y generar el reporte para ese mes, sin embargo el mes de Febrero, carece del archivo necesario para la base, por lo que es necesario copiar y pegar la base que está en la Carpeta NO_BORRAR. 
 
 Archivo "Base" en la carpeta del mes: Este corresponde al reporte mensual histórico que normalmente se completa. Es requerido para generar el nuevo reporte de devengado mensual, junto con el archivo de Devengado actual. 
 Respaldo: Si no hay un archivo Base en la carpeta principal, utilizar los ubicados en la carpeta de respaldo (indicada previamente).
