@@ -21,14 +21,26 @@ NO_BORRAR/
 Donde cada uno de esos elementos corresponde 
 Lo que hace el monitoreo, es que monitoreoa la carpeta SIGCOM, y revisa las carpetas dentro.
 ### 1. **Inicio Monitoreo**
-. Esta monitorización va a detectar cualquier cambio o movimiento que se genere dentro de la carpeta y en base a eso generará cambios. Asi por ejemplo, un evento puede ser la creación de un archivo en la carpeta de destino.
+Esta monitorización va a detectar cualquier modificación que se genere dentro de la carpeta y en base a eso generará cambios. Asi por ejemplo, un evento puede ser la creación/modificación/renombrado de un archivo en la carpeta de destino.
 ### 2. **Verificación de requerimientos**
 Cuando se detecta algun cambio lo que sucede es que inmedietamente se comienza a verificar lo siguiente:
 - Existe el archivo de Devengado en la carpeta 
 - Existe el archivo de Base en la carpeta 
 - Existe el Compilado con los códigos SIGFE/SIGCOM en la carpeta NO BORRAR.
 - No existe ya el documento de salida.
-De cumplirse todos los requerimientos entonces se procede a generar_output1
+De cumplirse todos los requerimientos entonces se procede a generar_output1.
+Para el archivo de Base en la carpeta, este archivo es el reporte mensual que tipicamente se completaba, y es necesario que cada vez que se quiere generar el reporte del devengado mensual se debe ingresar un archivo de Base y un Archivo de Devengado, de no tener algun archivo de Base en la carpeta, entonces hay unos de respaldo en otra carpeta NO BORRAR.
+
+Archivo "Base" en la carpeta del mes: Este corresponde al reporte mensual histórico que normalmente se completa. Es requerido para generar el nuevo reporte de devengado mensual, junto con el archivo de Devengado actual. 
+Respaldo: Si no hay un archivo Base en la carpeta principal, utilizar los ubicados en la carpeta de respaldo (indicada más abajo).
+
+```
+SIGCOM/
+├── NO_BORRAR
+...
+
+
+Ruta de respaldo: [Indicar ruta específica si es necesario].
 ### 3. **Genera output1**
 - Modifico los códigos en Devengado para que sigan el mismo formato que en Codigo Clasificador Compilado.
 - Al documento devengado le agrega los codigos SIGFE, SIGCOM y la descripción
