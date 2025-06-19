@@ -1,7 +1,7 @@
 # Generador Automatizado de Reportes Financieros
 Este programa crea automáticamente un reporte mensual de gastos. Reemplaza el trabajo manual de copiar datos entre planillas de Excel, ahorrando tiempo y evitando errores
 
-El programa sigue la siguiente secuencia para lograr generar el reporte mensual
+El programa sigue la siguiente secuencia para lograr generar el reporte mensual, que se detallará más adelante
 ![Image](https://github.com/user-attachments/assets/9744baf1-0f87-4605-9acf-1142fe125670)
 
 
