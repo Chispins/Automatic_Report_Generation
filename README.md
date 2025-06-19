@@ -2,10 +2,15 @@
 Este trabajo, busca facilitar la generación de los reportes mensuales de los Devengados.
 
 Este escrito responde al ¿Cómo? se realiza el reporte, pero antes de dar esa respuesta, se debe responder al ¿Qué hace? La respuesta es en realidad sencilla, Generar un reporte con la información del Devengado, que resuma lo gastado en cada Item SIGFE. El monitoreo y barrido que se describen posteriormente son solamente la forma o el medio escojido para lograr eso, y su objetivo es asegurarse que estén los archivos existentes, para realizar el reporte.
+La secuencia que se sigue es la siguiente 
+![Image](https://github.com/user-attachments/assets/9744baf1-0f87-4605-9acf-1142fe125670)
+
+
 ## Estructura de Directorios
 
 Lo primero que sucede al activar el programa es que se comienza una monitorización de forma permanente de una carpeta especificada, el programa por defecto monitorea Compartido Abastecimiento/Otros/SIGCOM, y todos los años y meses dentro de las subcarpetas.
 Esta estructura monitoreada se ve a continuación
+
 ```
 SIGCOM/
 ├── 2024/
@@ -24,7 +29,7 @@ NO_BORRAR/
 ```
 Lo que hace el monitoreo, es que monitoreoa la carpeta SIGCOM, y revisa los años y meses dentro.
 ### 1. **Inicio Monitoreo**
-Esta monitorización va a detectar cualquier modificación que se genere dentro de la carpeta y en base a eso generará cambios. Asi por ejemplo, un evento puede ser la creación/modificación/renombrado de un archivo en la carpeta de destino. El fin de esta monitorización es en última instancia asegurarse que estén todos los archivos necesarios para realizar el Reporte.
+Esta monitorización va a detectar cualquier modificación que se genere dentro de la carpeta y en base a eso generará cambios. Asi por ejemplo, un evento puede ser la creación/modificación/renombrado de un archivo en la carpeta de destino. El fin de esta monitorización es en última instancia asegurarse que estén todos los archivos necesarios para realizar el Reporte. Y la decisión de utilizar un monitoreo permite que no tengamos que realizar nada más que mover archivos a la carpeta necesaria, y el programa realize todo.
 ### 2. **Verificación de requerimientos**
 Cuando se detecta algun cambio lo que sucede es que inmedietamente se comienza a verificar lo siguiente:
 - Existe el archivo de Devengado en la carpeta 
@@ -34,7 +39,7 @@ Cuando se detecta algun cambio lo que sucede es que inmedietamente se comienza a
 De cumplirse todos los requerimientos entonces se procede a generar un Devengado Modificado.
 Con respecto al segundo requisito, se pregunta ¿Existe un archivo Base?, este archivo es el reporte mensual que se completa, y es necesario que cada vez que se quiere generar el reporte del devengado mensual se debe ingresar un archivo de Base y un Archivo de Devengado, de no tener algun archivo de Base en la carpeta, entonces hay unos de respaldo en otra carpeta NO BORRAR, tal cual se muestra en la estructuras de carpetas previa.
 Como aclaración, tipicamente no nos preocuparemos por el tercer requisito del compilado de Códigos, pues este debería siempre existir a menos que sea manualmente borrado.
-Otro punto a aclarar, es que en la estructura de carpetas mostrada previamente el mes de ENERO tiene los archivos correctamente creados, por lo que el proceso debería ejecutarse sin problemas y generar el reporte para ese mes, sin embargo el mes de Febrero, carece del archivo necesario para la base, por lo que es necesario copiar y pegar la base que está en la Carpeta NO_BORRAR. 
+Otro punto a aclarar, es que en la estructura de carpetas mostrada previamente el mes de ENERO tiene los archivos correctamente creados, por lo que el proceso debería ejecutarse sin problemas y generar el reporte para ese mes, sin embargo el mes de Febrero, carece del archivo necesario para la base, por lo que es necesario copiar y pegar la base que está en la Carpeta NO_BORRAR, entonces si "Por ejemplo, si alguien sube un archivo BASE_DISTRIBUCION_GENERAL.xlsx a la carpeta SIGCOM/2024/Marzo/ entonces se generará el reporte final. 
 
 Archivo "Base" en la carpeta del mes: Este corresponde al reporte mensual histórico que normalmente se completa. Es requerido para generar el nuevo reporte de devengado mensual, junto con el archivo de Devengado actual. 
 Respaldo: Si no hay un archivo Base en la carpeta principal, utilizar los ubicados en la carpeta de respaldo (indicada previamente).
@@ -254,3 +259,7 @@ El sistema comenzará a monitorear la estructura de directorios y procesará aut
 - Es posible crear códigos adicionales solamente con adicionar nuevos códigos al final del Compilado.
 - Al modificar un devengado, basta con modificar el ITEM SIGFE para que se contabilice de forma correcta por el sistema.
 - Hay una nota en el código que indica: "Ojo con subasignaciones, tengo duda de que funcionen bien" - Esta es un área que podría requerir revisión adicional.
+
+
+## Known Issues
+El monto que se designa es imputado manualmente, es decir, Siempre se imputa, el Monto Total o Subasignaciones, pero esto no es condicional, por lo que podría suceder que un item que tipicamente no tiene Subasignaciones un día tenga, y aun así en el reporte se mostrará el monto total
