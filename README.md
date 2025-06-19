@@ -9,6 +9,7 @@ El programa sigue la siguiente secuencia para lograr generar el reporte mensual
 
 Lo primero que sucede al activar el programa es que se comienza una monitorización de forma permanente de una carpeta especificada, el programa por defecto monitorea Compartido Abastecimiento/Otros/SIGCOM, y todos los años y meses dentro de las subcarpetas.
 Esta estructura monitoreada se ve a continuación
+
 Carpetas principales:
 1. **SIGCOM**: Aquí se guardan los archivos mensuales
    - Cada año tiene su carpeta (ej: 2024)
@@ -19,25 +20,10 @@ Carpetas principales:
 2. **NO_BORRAR**: Archivos importantes que NUNCA deben faltar
    - 🔐 `Codigos...xlsx` → Lista oficial de categorías de gastos
    - 🔐 `BASE...xlsx` → Copia de seguridad de la plantilla
-```
-SIGCOM/
-├── 2024/
-│   ├── Enero/
-│   │   ├── BASE DISTRIBUCION GASTO GENERAL Y SUMINISTROS.xlsx
-│   │   └── DEVENGADO.xlsx
-│   ├── Febrero/
-│   │   ├── DEVENADO.xlsx
-│   └── ...
-├── 2025/
-└── ...
 
-NO_BORRAR/
-└── Codigos_Clasificador_Compilado.xlsx
-└── BASE DISTRIBUCION GASTO GENERAL Y SUMINISTROS.xlsx
-```
-Lo que hace el monitoreo, es que monitoreoa la carpeta SIGCOM, y revisa los años y meses dentro.
+
 ### 1. **Inicio Monitoreo**
-Esta monitorización va a detectar cualquier modificación que se genere dentro de la carpeta y en base a eso generará cambios. Asi por ejemplo, un evento puede ser la creación/modificación/renombrado de un archivo en la carpeta de destino. El fin de esta monitorización es en última instancia asegurarse que estén todos los archivos necesarios para realizar el Reporte. Y la decisión de utilizar un monitoreo permite que no tengamos que realizar nada más que mover archivos a la carpeta necesaria, y el programa realize todo.
+El programa revisa cada segundo si hay archivos nuevos o modificados en las carpetas. Cuando detecta los archivos necesarios, genera el reporte automáticamente.
 ### 2. **Verificación de requerimientos**
 Cuando se detecta algun cambio lo que sucede es que inmedietamente se comienza a verificar lo siguiente:
 - Existe el archivo de Devengado en la carpeta 
@@ -52,6 +38,14 @@ Otro punto a aclarar, es que en la estructura de carpetas mostrada previamente e
 Archivo "Base" en la carpeta del mes: Este corresponde al reporte mensual histórico que normalmente se completa. Es requerido para generar el nuevo reporte de devengado mensual, junto con el archivo de Devengado actual. 
 Respaldo: Si no hay un archivo Base en la carpeta principal, utilizar los ubicados en la carpeta de respaldo (indicada previamente).
 
+Para que el reporte se genere automáticamente, debe cumplirse esto:
+
+| Requisito | ¿Qué pasa si falta? | ¿Cómo solucionarlo? |
+|-----------|---------------------|---------------------|
+| **`DEVENGADO.xlsx`** en la carpeta del mes | El reporte **NO se genera** | 1. Consigue el archivo de gastos del mes<br>2. Colócalo en la carpeta del mes<br>3. Asegúrate que se llame EXACTAMENTE `DEVENGADO.xlsx` |
+| **`BASE DISTRIBUCION GASTO GENERAL Y SUMINISTROS.xlsx`** en la carpeta del mes | El programa usa la copia de `NO_BORRAR` | Si quieres una versión específica:<br>1. Copia el archivo desde `NO_BORRAR`<br>2. Pégalo en la carpeta del mes |
+| **`Codigos_Clasificador_Compilado.xlsx`** en `NO_BORRAR` | El reporte **NO funciona correctamente** | **No lo muevas ni lo borres**<br>Si falta, repónlo desde una copia de seguridad |
+| **NO existe el reporte final** en la carpeta del mes | No se crea nuevo reporte | 1. Elimina el reporte antiguo<br>2. O muévelo a otra carpeta |
 
 ### 3. **Genera output1**
 Una vez se confirmaron que se cumplen las condiciones previas, entonces se procede a abrir los gastos DEVENGADOS mensuales, **si es que el excel posee multiples páginas, entonces abre la página que tenga el mismo nombre que la carpeta en la que se encuentra, es decir, si estamos en la Carpeta "Marzo", al Abrir el Devengado utilizará la hoja de "Marzo" o "MARZO"**. En caso de NO existir la hoja de marzo, entonces el proceso fallará. Y no se generará ningún archivo.
@@ -114,6 +108,13 @@ Antes de procesar, verifica:
 - `xlwings`: Automatización de plantillas Excel.  
 
 --- 
+
+### Ejemplo de uso para Noviembre 2025
+Crear carpeta SIGCOM/2025/Marzo
+-Copiar tu archivo DEVENGADO.xlsx
+-Pegar aquí la plantilla BASE DISTRIBUCION...xlsx (si no tienes una, usa la de NO_BORRAR)
+¡El reporte se creará automáticamente!"
+
 
 # Generación Automática de Reportes de Centros de Coste HSJM
 
