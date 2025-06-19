@@ -1,8 +1,7 @@
 # Generador Automatizado de Reportes Financieros
-Este trabajo, busca facilitar la generación de los reportes mensuales de los Devengados.
+Este programa crea automáticamente un reporte mensual de gastos. Reemplaza el trabajo manual de copiar datos entre planillas de Excel, ahorrando tiempo y evitando errores
 
-Este escrito responde al ¿Cómo? se realiza el reporte, pero antes de dar esa respuesta, se debe responder al ¿Qué hace? La respuesta es en realidad sencilla, Generar un reporte con la información del Devengado, que resuma lo gastado en cada Item SIGFE. El monitoreo y barrido que se describen posteriormente son solamente la forma o el medio escojido para lograr eso, y su objetivo es asegurarse que estén los archivos existentes, para realizar el reporte.
-La secuencia que se sigue es la siguiente 
+El programa sigue la siguiente secuencia para lograr generar el reporte mensual
 ![Image](https://github.com/user-attachments/assets/9744baf1-0f87-4605-9acf-1142fe125670)
 
 
@@ -10,7 +9,16 @@ La secuencia que se sigue es la siguiente
 
 Lo primero que sucede al activar el programa es que se comienza una monitorización de forma permanente de una carpeta especificada, el programa por defecto monitorea Compartido Abastecimiento/Otros/SIGCOM, y todos los años y meses dentro de las subcarpetas.
 Esta estructura monitoreada se ve a continuación
+Carpetas principales:
+1. **SIGCOM**: Aquí se guardan los archivos mensuales
+   - Cada año tiene su carpeta (ej: 2024)
+   - Cada mes tiene su subcarpeta (ej: Enero)
+      - 📄 `DEVENGADO.xlsx` → **Gastos del mes** (obligatorio)
+      - 📄 `BASE...xlsx` → **Plantilla para el reporte** (obligatorio)
 
+2. **NO_BORRAR**: Archivos importantes que NUNCA deben faltar
+   - 🔐 `Codigos...xlsx` → Lista oficial de categorías de gastos
+   - 🔐 `BASE...xlsx` → Copia de seguridad de la plantilla
 ```
 SIGCOM/
 ├── 2024/
