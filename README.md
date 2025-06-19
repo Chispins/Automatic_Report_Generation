@@ -7,8 +7,7 @@ El programa sigue la siguiente secuencia para lograr generar el reporte mensual
 
 ## Estructura de Directorios
 
-Lo primero que sucede al activar el programa es que se comienza una monitorización de forma permanente de una carpeta especificada, el programa por defecto monitorea Compartido Abastecimiento/Otros/SIGCOM, y todos los años y meses dentro de las subcarpetas.
-Esta estructura monitoreada se ve a continuación
+Lo primero que sucede al activar el programa es que se crea un vigilante que estará siempre mirando la carpeta principal y todas las carpetas dentro (meses, y años). Esto es para asegurarse de que cuando se tengan los archivos necesarios se cree el reporte. Este vigilante espera la siguiente estructura de carpetas.
 
 Carpetas principales:
 1. **SIGCOM**: Aquí se guardan los archivos mensuales
