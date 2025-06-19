@@ -25,25 +25,11 @@ Carpetas principales:
 ### 1. **Inicio Monitoreo**
 El programa revisa cada segundo si hay archivos nuevos o modificados en las carpetas. Cuando detecta los archivos necesarios, genera el reporte automáticamente.
 ### 2. **Verificación de requerimientos**
-Cuando se detecta algun cambio lo que sucede es que inmedietamente se comienza a verificar lo siguiente:
-- Existe el archivo de Devengado en la carpeta 
-- Existe el archivo de Base en la carpeta 
-- Existe el Compilado con los códigos SIGFE/SIGCOM en la carpeta NO BORRAR.
-- No existe ya el documento de salida.
-De cumplirse todos los requerimientos entonces se procede a generar un Devengado Modificado.
-Con respecto al segundo requisito, se pregunta ¿Existe un archivo Base?, este archivo es el reporte mensual que se completa, y es necesario que cada vez que se quiere generar el reporte del devengado mensual se debe ingresar un archivo de Base y un Archivo de Devengado, de no tener algun archivo de Base en la carpeta, entonces hay unos de respaldo en otra carpeta NO BORRAR, tal cual se muestra en la estructuras de carpetas previa.
-Como aclaración, tipicamente no nos preocuparemos por el tercer requisito del compilado de Códigos, pues este debería siempre existir a menos que sea manualmente borrado.
-Otro punto a aclarar, es que en la estructura de carpetas mostrada previamente el mes de ENERO tiene los archivos correctamente creados, por lo que el proceso debería ejecutarse sin problemas y generar el reporte para ese mes, sin embargo el mes de Febrero, carece del archivo necesario para la base, por lo que es necesario copiar y pegar la base que está en la Carpeta NO_BORRAR, entonces si "Por ejemplo, si alguien sube un archivo BASE_DISTRIBUCION_GENERAL.xlsx a la carpeta SIGCOM/2024/Marzo/ entonces se generará el reporte final. 
-
-Archivo "Base" en la carpeta del mes: Este corresponde al reporte mensual histórico que normalmente se completa. Es requerido para generar el nuevo reporte de devengado mensual, junto con el archivo de Devengado actual. 
-Respaldo: Si no hay un archivo Base en la carpeta principal, utilizar los ubicados en la carpeta de respaldo (indicada previamente).
-
-Para que el reporte se genere automáticamente, debe cumplirse esto:
-
+Para que el reporte se genere se revisa que se cumplan **todos** los requisitos listados a continuación.
 | Requisito | ¿Qué pasa si falta? | ¿Cómo solucionarlo? |
 |-----------|---------------------|---------------------|
-| **`DEVENGADO.xlsx`** en la carpeta del mes | El reporte **NO se genera** | 1. Consigue el archivo de gastos del mes<br>2. Colócalo en la carpeta del mes<br>3. Asegúrate que se llame EXACTAMENTE `DEVENGADO.xlsx` |
-| **`BASE DISTRIBUCION GASTO GENERAL Y SUMINISTROS.xlsx`** en la carpeta del mes | El programa usa la copia de `NO_BORRAR` | Si quieres una versión específica:<br>1. Copia el archivo desde `NO_BORRAR`<br>2. Pégalo en la carpeta del mes |
+| **`DEVENGADO.xlsx`** en la carpeta del mes | El reporte **NO se genera** | 1. Consigue el archivo de gastos del mes<br>2. Colócalo en la carpeta del mes<br>3. Asegúrate que se llame el nombre comienza con `DEVENGADO` |
+| **`BASE DISTRIBUCION GASTO GENERAL Y SUMINISTROS.xlsx`** en la carpeta del mes | El reporte **NO se genera** | Si quieres una versión específica:<br>1. Copia el archivo desde `NO_BORRAR`<br>2. Pégalo en la carpeta del mes |
 | **`Codigos_Clasificador_Compilado.xlsx`** en `NO_BORRAR` | El reporte **NO funciona correctamente** | **No lo muevas ni lo borres**<br>Si falta, repónlo desde una copia de seguridad |
 | **NO existe el reporte final** en la carpeta del mes | No se crea nuevo reporte | 1. Elimina el reporte antiguo<br>2. O muévelo a otra carpeta |
 
