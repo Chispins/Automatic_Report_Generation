@@ -1,5 +1,7 @@
 # Generador Automatizado de Reportes Financieros
 Este trabajo, busca facilitar la generación de los reportes mensuales de los Devengados, para ello se utiliza el siguiente Flujo.
+
+Este escrito responde al ¿Cómo? se realiza el reporte, pero antes de dar esa respuesta, se debe responder al ¿Qué hace? La respuesta es en realidad sencilla, Generar un reporte con la información del Devengado, agrupando por los respectivos Items de costo. Y el monitoreo y barrido que se describen posteriormente son solamente el medio escojido para asegurarse que estén los archivos existentes, y realizar el reporte.
 ## Estructura de Directorios
 
 Lo primero que sucede al activar el programa es que se comienza una monitorización de forma permanente de una carpeta especificada, el programa por defecto monitorea Compartido Abastecimiento/Otros/SIGCOM, y todos los años y meses dentro de las subcarpetas.
@@ -11,17 +13,19 @@ SIGCOM/
 │   │   ├── BASE DISTRIBUCION GASTO GENERAL Y SUMINISTROS.xlsx
 │   │   └── DEVENGADO.xlsx
 │   ├── Febrero/
+│   │   ├── DEVENADO.xlsx
 │   └── ...
 ├── 2025/
 └── ...
 
 NO_BORRAR/
 └── Codigos_Clasificador_Compilado.xlsx
+└── BASE DISTRIBUCION GASTO GENERAL Y SUMINISTROS.xlsx
 ```
 Donde cada uno de esos elementos corresponde 
 Lo que hace el monitoreo, es que monitoreoa la carpeta SIGCOM, y revisa las carpetas dentro.
 ### 1. **Inicio Monitoreo**
-Esta monitorización va a detectar cualquier modificación que se genere dentro de la carpeta y en base a eso generará cambios. Asi por ejemplo, un evento puede ser la creación/modificación/renombrado de un archivo en la carpeta de destino.
+Esta monitorización va a detectar cualquier modificación que se genere dentro de la carpeta y en base a eso generará cambios. Asi por ejemplo, un evento puede ser la creación/modificación/renombrado de un archivo en la carpeta de destino. 
 ### 2. **Verificación de requerimientos**
 Cuando se detecta algun cambio lo que sucede es que inmedietamente se comienza a verificar lo siguiente:
 - Existe el archivo de Devengado en la carpeta 
@@ -29,24 +33,23 @@ Cuando se detecta algun cambio lo que sucede es que inmedietamente se comienza a
 - Existe el Compilado con los códigos SIGFE/SIGCOM en la carpeta NO BORRAR.
 - No existe ya el documento de salida.
 De cumplirse todos los requerimientos entonces se procede a generar_output1.
-Para el archivo de Base en la carpeta, este archivo es el reporte mensual que tipicamente se completaba, y es necesario que cada vez que se quiere generar el reporte del devengado mensual se debe ingresar un archivo de Base y un Archivo de Devengado, de no tener algun archivo de Base en la carpeta, entonces hay unos de respaldo en otra carpeta NO BORRAR.
+Para el archivo de Base en la carpeta, este archivo es el reporte mensual que tipicamente se completaba, y es necesario que cada vez que se quiere generar el reporte del devengado mensual se debe ingresar un archivo de Base y un Archivo de Devengado, de no tener algun archivo de Base en la carpeta, entonces hay unos de respaldo en otra carpeta NO BORRAR, tal cual se muestra en la estructuras de carpetas previa.
+Como aclaración, tipicamente no nos preocuparemos por el tercer requisito del compilado de Códigos, pues este debería siempre existir a menos que sea manualmente borrado.
+Otro punto a aclarar, es que en la estructura de carpetas mostrada previamente el mes de ENERO tiene los archivos correctamente creados, por lo que el proceso debería ejecutarse sin problemas y generar el reporte para ese mes, sin embargo el mes de Febrero, carece del archivo necesario para la base, por lo que es necesario copiar y pegar la base que está en la Carpeta NO_BORRAR
 
 Archivo "Base" en la carpeta del mes: Este corresponde al reporte mensual histórico que normalmente se completa. Es requerido para generar el nuevo reporte de devengado mensual, junto con el archivo de Devengado actual. 
-Respaldo: Si no hay un archivo Base en la carpeta principal, utilizar los ubicados en la carpeta de respaldo (indicada más abajo).
-
-```
-SIGCOM/
-├── NO_BORRAR
-...
+Respaldo: Si no hay un archivo Base en la carpeta principal, utilizar los ubicados en la carpeta de respaldo (indicada previamente).
 
 
-Ruta de respaldo: [Indicar ruta específica si es necesario].
 ### 3. **Genera output1**
+Una vez se confirmaron que se cumplen las condiciones previas, entonces se procede a abrir los gastos DEVENGADOS mensuales, **si es que el excel posee multiples páginas, entonces abre la página que tenga el mismo nombre que la carpeta en la que se encuentra, es decir, si estamos en la Carpeta "Marzo", al Abrir el Devengado utilizará la hoja de "Marzo" o "MARZO"**. En caso de NO existir la hoja de marzo, entonces el proceso fallará. Y no se generará ningún archivo.
+La hoja de excel utilizada es la que posee el mismo nombre de la carpeta, y en base a esa se va generar un primer archivo, que es exactamente igual al original solo que sin ningun formato, y con nuevas columnas agregadas, estas columnas son los datos que están presentes en Código Clasificador compilado, entonces por ejemplo un registro posee entre las muchas columnas, una que especifican el ITEM, que es en realidad un Codigo SIGFE, es ese codigo el cual se hace un "match" con los códigos en Clasificador Compilado, y se adicionan las columnas al Devengado, y las columnas que se agregan son ITEM SIGFE, ITEM SIGCOM, el nombre del Item según SIGFE, y el nombre según SIGCOM, además de una columna Subasignaciones que toma el valor 1 si es que el item posee Subasignaciones o Subitems, y 0 si no. Otra modificación que sucede es que elimina los datos de todas las filas que no representan registros individuales, entonces aquellos que por ejemplo son los Totales de un item son Ignorados, por lo que su preesencia o ausencia no genera ningún efecto en el reporte.
+Una vez que se inicia la generación del primer archivo.
 - Modifico los códigos en Devengado para que sigan el mismo formato que en Codigo Clasificador Compilado.
 - Al documento devengado le agrega los codigos SIGFE, SIGCOM y la descripción
 - Luego guarda el mismo documento con esos cambios como `Modified_Devengado.xlsx`
 ### 4. **Genera output_2**
-- Luego con todas las ordenes de compra, las agrupa por su respectivo código Sigfe, y agrega una columna con el Monto total dado por la suma de todos los elementos con el mismo código, y otra columna con el Monto Subasignaciones, dado por la suma de los Montos Totales de los SubItems en caso de poseerlos.
+- Luego el archivo generado en output_1 es el utilizado, toma todos las compras y las agrupa por su respectivo código Sigfe, y agrega una columna con el Monto total dado por la suma de todos los elementos con el mismo código, y otra columna con el Monto Subasignaciones, dado por la suma de los Montos Totales de los SubItems en caso de poseerlos.
 ### 5. **Genera output_3**
 - Luego genera el reporte final, cada uno de los elementos de output_2 es asignado manualmente y designado en una columna en específico dentro del archivo de Base.
 
