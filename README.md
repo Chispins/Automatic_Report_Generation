@@ -34,12 +34,25 @@ Para que el reporte se genere se revisa que se cumplan **todos** los requisitos 
 | **NO existe el reporte final** en la carpeta del mes | No se crea nuevo reporte | 1. Elimina el reporte antiguo<br>2. O muévelo a otra carpeta |
 
 ### 3. **Creación de Archvio intermedio 1**
-El programa abre el Excel devengado **utilizando la hoja con el mismo nombre de la carpeta** y luego le agrega un par de columnas que contienen los nombres de el nombre del ITEM SIGFE e ITEM SIGCOM
+- El programa abre el Excel devengado **utilizando la hoja con el mismo nombre de la carpeta** y luego le agrega un par de columnas que contienen los nombres del ITEM SIGFE e ITEM SIGCOM, estas columnas provienen del Compilado de Códigos Presupuestarios.
 
 ### 4. **Genera output_2**
-- Luego el archivo anterior es el utilizado, toma todos las compras y las agrupa por su respectivo código Sigfe, y agrega una columna con el Monto total dado por la suma de todos los elementos con el mismo código, y otra columna con el Monto Subasignaciones, dado por la suma de los Montos Totales de los SubItems en caso de poseerlos.
+- Con el archivo anterior, se toman todas las compras y las agrupa por su respectivo código SIGFE, y agrega una columna con el Monto total dado por la suma de todos los elementos con el mismo código, y otra columna con el Monto Subasignaciones, dado por la suma de los Montos Totales de los SubItems en caso de poseerlos.
 ### 5. **Genera output_3**
 - Luego genera el reporte final, cada uno de los elementos de output_2 es asignado manualmente y designado en una columna en específico dentro del archivo de Base.
+
+
+### Ejemplo de uso para Noviembre 2026
+
+1. Crear la carpeta:  
+   `SIGCOM/2026/Noviembre/`
+
+2. Copiar tus archivos:
+   - Pega tu archivo de `DEVENGADO.xlsx` en la carpeta
+   - Coloca la plantilla `BASE DISTRIBUCION GASTO GENERAL Y SUMINISTROS.xlsx` en la misma carpeta  
+     *(Si no tienes una plantilla, copia la versión de respaldo de la carpeta NO_BORRAR)*
+
+3. ¡Listo! El reporte se generará automáticamente en unos minutos.
 
 # Generador Automatizado de Reportes Financieros  
 
