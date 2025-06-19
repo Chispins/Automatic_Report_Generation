@@ -18,7 +18,7 @@ Carpetas principales:
       - 📄 `BASE...xlsx` → **Plantilla para el reporte** (obligatorio)
 
 2. **NO_BORRAR**: Archivos importantes que NUNCA deben faltar
-   - 🔐 `Codigos...xlsx` → Lista oficial de categorías de gastos
+   - 🔐 `Codigos...xlsx` → Lista de categorías de gastos según SIGFE y SIGCOM
    - 🔐 `BASE...xlsx` → Copia de seguridad de la plantilla
 
 
@@ -34,30 +34,10 @@ Para que el reporte se genere se revisa que se cumplan **todos** los requisitos 
 | **NO existe el reporte final** en la carpeta del mes | No se crea nuevo reporte | 1. Elimina el reporte antiguo<br>2. O muévelo a otra carpeta |
 
 ### 3. **Creación de Archvio intermedio 1**
-1. **Abre el archivo de gastos del mes** (`DEVENGADO.xlsx`)
-   - Busca automáticamente **la hoja que coincide con el nombre del mes** (ej: si estás en la carpeta "Marzo", usará la hoja "Marzo" o "MARZO")
-   - ⚠️ Si no encuentra una hoja con ese nombre exacto, el proceso se detiene
+El programa abre el Excel devengado **utilizando la hoja con el mismo nombre de la carpeta** y luego le agrega un par de columnas que contienen los nombres de el nombre del ITEM SIGFE e ITEM SIGCOM
 
-2. **Realiza estas mejoras al archivo:**
-   - 🧹 Elimina formatos complicados y resúmenes (solo conserva los gastos individuales)
-   - ➕ Añade nueva información importante:
-     - Código oficial del tipo de gasto (ITEM SIGFE)
-     - Código alternativo (ITEM SIGCOM)
-     - Nombre completo del gasto según ambos sistemas
-     - Indicador de sub-items (¿Necesita desglosarse? → Sí=1 / No=0)
-
-3. **Guarda el resultado mejorado**
-   - Nombre del nuevo archivo: `Modified_Devengado.xlsx`
-   - Ubicación: **Misma carpeta del mes**
-   - 
-Una vez se confirmaron que se cumplen las condiciones previas, entonces se procede a abrir los gastos DEVENGADOS mensuales, **si es que el excel posee multiples páginas, entonces abre la página que tenga el mismo nombre que la carpeta en la que se encuentra, es decir, si estamos en la Carpeta "Marzo", al Abrir el Devengado utilizará la hoja de "Marzo" o "MARZO"**. En caso de NO existir la hoja de marzo, entonces el proceso fallará. Y no se generará ningún archivo.
-La hoja de excel utilizada es la que posee el mismo nombre de la carpeta, y en base a esa se va generar un primer archivo, que es exactamente igual al original solo que sin ningun formato, y con nuevas columnas agregadas, estas columnas son los datos que están presentes en Código Clasificador compilado, entonces por ejemplo un registro posee entre las muchas columnas, una que especifican el ITEM, que es en realidad un Codigo SIGFE, es ese codigo el cual se hace un "match" con los códigos en Clasificador Compilado, y se adicionan las columnas al Devengado, y las columnas que se agregan son ITEM SIGFE, ITEM SIGCOM, el nombre del Item según SIGFE, y el nombre según SIGCOM, además de una columna Subasignaciones que toma el valor 1 si es que el item posee Subasignaciones o Subitems, y 0 si no. Otra modificación que sucede es que elimina los datos de todas las filas que no representan registros individuales, entonces aquellos que por ejemplo son los Totales de un item son Ignorados, por lo que su preesencia o ausencia no genera ningún efecto en el reporte.
-Una vez que se inicia la generación del primer archivo.
-- Modifico los códigos en Devengado para que sigan el mismo formato que en Codigo Clasificador Compilado.
-- Al documento devengado le agrega los codigos SIGFE, SIGCOM y la descripción
-- Luego guarda el mismo documento con esos cambios como `Modified_Devengado.xlsx`
 ### 4. **Genera output_2**
-- Luego el archivo generado en output_1 es el utilizado, toma todos las compras y las agrupa por su respectivo código Sigfe, y agrega una columna con el Monto total dado por la suma de todos los elementos con el mismo código, y otra columna con el Monto Subasignaciones, dado por la suma de los Montos Totales de los SubItems en caso de poseerlos.
+- Luego el archivo anterior es el utilizado, toma todos las compras y las agrupa por su respectivo código Sigfe, y agrega una columna con el Monto total dado por la suma de todos los elementos con el mismo código, y otra columna con el Monto Subasignaciones, dado por la suma de los Montos Totales de los SubItems en caso de poseerlos.
 ### 5. **Genera output_3**
 - Luego genera el reporte final, cada uno de los elementos de output_2 es asignado manualmente y designado en una columna en específico dentro del archivo de Base.
 
@@ -117,6 +97,30 @@ Crear carpeta SIGCOM/2025/Marzo
 -Pegar aquí la plantilla BASE DISTRIBUCION...xlsx (si no tienes una, usa la de NO_BORRAR)
 ¡El reporte se creará automáticamente!"
 
+
+
+1. **Abre el archivo de gastos del mes** (`DEVENGADO.xlsx`)
+   - Busca automáticamente **la hoja que coincide con el nombre del mes** (ej: si estás en la carpeta "Marzo", usará la hoja "Marzo" o "MARZO")
+   - ⚠️ Si no encuentra una hoja con ese nombre exacto, el proceso se detiene
+
+2. **Realiza estas mejoras al archivo:**
+   - 🧹 Elimina cualquier formato (font, size, color, etc)
+   - ➕ Añade nueva información importante:
+     - Código oficial del tipo de gasto (ITEM SIGFE)
+     - Código alternativo (ITEM SIGCOM)
+     - Nombre completo del gasto según ambos sistemas
+     - Indicador de sub-items (¿Existen sub asignaciones? → Sí=1 / No=0)
+
+3. **Guarda el resultado mejorado**
+   - Nombre del nuevo archivo: `Modified_Devengado.xlsx`
+   - Ubicación: **Misma carpeta del mes**
+   - 
+Una vez se confirmaron que se cumplen las condiciones previas, entonces se procede a abrir los gastos DEVENGADOS mensuales, **si es que el excel posee multiples páginas, entonces abre la página que tenga el mismo nombre que la carpeta en la que se encuentra, es decir, si estamos en la Carpeta "Marzo", al Abrir el Devengado utilizará la hoja de "Marzo" o "MARZO"**. En caso de NO existir la hoja de marzo, entonces el proceso fallará. Y no se generará ningún archivo.
+La hoja de excel utilizada es la que posee el mismo nombre de la carpeta, y en base a esa se va generar un primer archivo, que es exactamente igual al original solo que sin ningun formato, y con nuevas columnas agregadas, estas columnas son los datos que están presentes en Código Clasificador compilado, entonces por ejemplo un registro posee entre las muchas columnas, una que especifican el ITEM, que es en realidad un Codigo SIGFE, es ese codigo el cual se hace un "match" con los códigos en Clasificador Compilado, y se adicionan las columnas al Devengado, y las columnas que se agregan son ITEM SIGFE, ITEM SIGCOM, el nombre del Item según SIGFE, y el nombre según SIGCOM, además de una columna Subasignaciones que toma el valor 1 si es que el item posee Subasignaciones o Subitems, y 0 si no. Otra modificación que sucede es que elimina los datos de todas las filas que no representan registros individuales, entonces aquellos que por ejemplo son los Totales de un item son Ignorados, por lo que su preesencia o ausencia no genera ningún efecto en el reporte.
+Una vez que se inicia la generación del primer archivo.
+- Modifico los códigos en Devengado para que sigan el mismo formato que en Codigo Clasificador Compilado.
+- Al documento devengado le agrega los codigos SIGFE, SIGCOM y la descripción
+- Luego guarda el mismo documento con esos cambios como `Modified_Devengado.xlsx`
 
 # Generación Automática de Reportes de Centros de Coste HSJM
 
