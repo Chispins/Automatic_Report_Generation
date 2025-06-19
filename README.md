@@ -2,7 +2,7 @@
 Este programa crea automáticamente un reporte mensual de gastos. Reemplaza el trabajo manual de copiar datos entre planillas de Excel, ahorrando tiempo y evitando errores
 
 El programa sigue la siguiente secuencia para lograr generar el reporte mensual, que se detallará más adelante
-![Image](https://github.com/user-attachments/assets/9744baf1-0f87-4605-9acf-1142fe125670)
+![Image](https://github.com/user-attachments/assets/39e2dbfb-90c9-4c11-a1f6-1a77f37fa7fd)
 
 
 ## Estructura de Directorios
